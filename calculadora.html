@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora — ECOBIOL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lato:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css?v=12">
+</head>
+<body class="pagina-calc">
+
+<header class="top">
+  <div class="inner">
+    <h1>Dimensionamiento del sistema de tratamiento de porcinaza</h1>
+    <p>Ingresa los datos de tu granja para calcular el tamaño de cada unidad del sistema. Los valores técnicos ya vienen con los parámetros recomendados — puedes ajustarlos en "opciones avanzadas" si conoces las condiciones reales de tu finca.</p>
+  </div>
+</header>
+
+<nav class="flow-nav" aria-label="Pasos de la calculadora">
+  <div class="inner">
+
+    <!-- Etapas del sistema -->
+    <div class="fases">
+      <div class="fase general">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><rect x="9" y="2.5" width="6" height="3" rx="1"/><path d="M8 10l1.2 1.2L11.5 9M8 15l1.2 1.2 2.3-2.2M13.5 10.5H16M13.5 15.5H16"/></svg>
+        <span>Información de tu granja</span>
+      </div>
+      <div class="fase liquida">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3.5 4.6 6 8 6 11a6 6 0 0 1-12 0c0-3 2.5-6.4 6-11z"/></svg>
+        <span>Tratamiento de la fracción líquida</span>
+      </div>
+      <div class="fase solida">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18c1.5-4 4.5-7 9-7s7.5 3 9 7z"/><circle cx="9" cy="14.5" r=".9"/><circle cx="13" cy="13.5" r=".9"/><circle cx="15.5" cy="16" r=".9"/><circle cx="11" cy="16.5" r=".9"/></svg>
+        <span>Manejo de la fracción sólida</span>
+      </div>
+    </div>
+
+    <!-- Línea de pasos -->
+    <ol class="stepper">
+      <li><button type="button" class="flow-dot general" data-step="sec-escenario" onclick="goToStep('sec-escenario')"><span class="num">1</span><span class="lbl">Escenario</span></button></li>
+      <li><button type="button" class="flow-dot general" data-step="sec-poblacion" onclick="goToStep('sec-poblacion')"><span class="num">2</span><span class="lbl">Población</span></button></li>
+      <li><button type="button" class="flow-dot general" data-step="sec-caudal" onclick="goToStep('sec-caudal')"><span class="num">3</span><span class="lbl">Caudal</span></button></li>
+      <li><button type="button" class="flow-dot liquida" data-step="sec-recepcion" onclick="goToStep('sec-recepcion')"><span class="num">4</span><span class="lbl">Tanque de recepción</span></button></li>
+      <li><button type="button" class="flow-dot liquida" data-step="sec-biodigestor" onclick="goToStep('sec-biodigestor')"><span class="num">5</span><span class="lbl">Biodigestor</span></button></li>
+      <li><button type="button" class="flow-dot liquida" data-step="sec-biol" onclick="goToStep('sec-biol')"><span class="num">6</span><span class="lbl">Tanque de biol</span></button></li>
+      <li><button type="button" class="flow-dot liquida" data-step="sec-destino" onclick="goToStep('sec-destino')"><span class="num">7</span><span class="lbl">Destino del biol</span></button></li>
+      <li><button type="button" class="flow-dot solida" data-step="sec-lechos" onclick="goToStep('sec-lechos')"><span class="num">8</span><span class="lbl">Lechos de secado</span></button></li>
+      <li><button type="button" class="flow-dot solida" data-step="sec-marquesina" onclick="goToStep('sec-marquesina')"><span class="num">9</span><span class="lbl">Marquesina de secado</span></button></li>
+      <li><button type="button" class="flow-dot solida" data-step="sec-compost" onclick="goToStep('sec-compost')"><span class="num">10</span><span class="lbl">Compostaje</span></button></li>
+    </ol>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- 1. ESCENARIO -->
+  <section class="step paso" id="sec-escenario">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 1</span>
+      <div>
+        <h2>Elige cómo manejar la porcinaza</h2>
+        <p class="sub">Antes de dimensionar el sistema, define si separarás los sólidos de la porcinaza o si la tratarás sin separación.</p>
+      </div>
+    </div>
+
+    <div class="caja-info">
+      <h3>¿Por qué es importante esta decisión?</h3>
+      <p>La porcinaza contiene una fracción sólida y una fracción líquida. Separarlas permite manejar cada una de forma adecuada, facilita las etapas de tratamiento, reduce la carga contaminante y permite aprovechar el compost y el biol.</p>
+      <p>La alternativa con o sin separación depende de la cantidad de porcinaza generada, el espacio disponible, la disponibilidad de agua, la inversión y la capacidad de operación y mantenimiento de la granja.</p>
+    </div>
+
+    <div class="alternativas">
+
+      <article class="alternativa selected" id="cardCS">
+        <input type="radio" name="escenario" value="CS" id="escCS" checked>
+        <h4>Alternativa con separación</h4>
+        <img src="alternativa-con-separacion.png" alt="Esquema del sistema con separación: los sólidos van a marquesinas de secado y compostaje; la fracción líquida pasa por tanque de recepción, biodigestor y tanque de biol">
+        <div class="alternativa__botones">
+          <label for="escCS" class="btn-seleccionar">
+            <span class="ico-check" aria-hidden="true">✓</span>
+            <span class="txt-sel">Seleccionar esta alternativa</span>
+            <span class="txt-ok">Alternativa seleccionada</span>
+          </label>
+          <button type="button" class="btn-plano" onclick="openLightbox('plano-con-separacion.png','Plano del tratamiento con separación (CS)')">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+            Ver plano detallado
+          </button>
+        </div>
+      </article>
+
+      <article class="alternativa" id="cardSS">
+        <input type="radio" name="escenario" value="SS" id="escSS">
+        <h4>Alternativa sin separación</h4>
+        <img src="alternativa-sin-separacion.png" alt="Esquema del sistema sin separación: toda la porcinaza pasa por tanque de recepción, biodigestor y tanque de biol; los lodos van a lechos de secado">
+        <div class="alternativa__botones">
+          <label for="escSS" class="btn-seleccionar">
+            <span class="ico-check" aria-hidden="true">✓</span>
+            <span class="txt-sel">Seleccionar esta alternativa</span>
+            <span class="txt-ok">Alternativa seleccionada</span>
+          </label>
+          <button type="button" class="btn-plano" onclick="openLightbox('plano-sin-separacion.png','Plano del tratamiento sin separación (SS)')">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+            Ver plano detallado
+          </button>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Solo visible cuando se elige la alternativa con separación -->
+    <div class="bloque-separacion" id="bloqueSeparacion">
+      <div class="caja-info">
+        <h3>Si seleccionaste la alternativa con separación…</h3>
+        <p>Existen diferentes formas de separar los sólidos de la porcinaza. A continuación se presentan algunas alternativas.</p>
+      </div>
+      <figure class="tecnologias">
+        <figcaption>Tecnologías de separación sólido-líquido</figcaption>
+        <img src="tecnologias-separacion.png" alt="Tres tecnologías de separación: manual, mecánica (tornillo prensa) y centrífuga">
+      </figure>
+    </div>
+
+  </section>
+  <!-- 2. POBLACIÓN -->
+  <section class="step paso" id="sec-poblacion">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 2</span>
+      <div>
+        <h2>Población porcina</h2>
+        <p class="sub">Ingresa el número de animales por grupo. Con esta información se calcula el número de cerdos equivalentes (CE), que es la unidad base para el dimensionamiento del sistema de tratamiento.</p>
+      </div>
+    </div>
+
+    <div class="grupo-animales reproduccion">
+      <h3 class="grupo-titulo">Animales destinados a la reproducción</h3>
+      <div class="animales">
+        <div class="animal">
+          <img src="cerdo-hembra-vacia.png" alt="" loading="lazy">
+          <label for="n_hv">Hembra vacía</label>
+          <p>Hembras que no están gestantes ni lactantes.</p>
+          <div class="campo-animal"><input type="number" min="0" step="1" inputmode="numeric" value="0" id="n_hv"><span>animales</span></div>
+        </div>
+        <div class="animal">
+          <img src="cerdo-hembra-gestante.png" alt="" loading="lazy">
+          <label for="n_hg">Hembra gestante</label>
+          <p>Hembras en periodo de gestación.</p>
+          <div class="campo-animal"><input type="number" min="0" step="1" inputmode="numeric" value="0" id="n_hg"><span>animales</span></div>
+        </div>
+        <div class="animal">
+          <img src="cerdo-hembra-lactante.png" alt="" loading="lazy">
+          <label for="n_hl">Hembra lactante</label>
+          <p>Hembras que se encuentran amamantando.</p>
+          <div class="campo-animal"><input type="number" min="0" step="1" inputmode="numeric" value="0" id="n_hl"><span>animales</span></div>
+        </div>
+        <div class="animal">
+          <img src="cerdo-macho-reproductor.png" alt="" loading="lazy">
+          <label for="n_mr">Macho reproductor</label>
+          <p>Machos destinados a la reproducción.</p>
+          <div class="campo-animal"><input type="number" min="0" step="1" inputmode="numeric" value="0" id="n_mr"><span>animales</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grupo-animales crecimiento">
+      <h3 class="grupo-titulo">Animales en crecimiento y ceba</h3>
+      <div class="animales">
+        <div class="animal">
+          <img src="cerdo-lechon-lactante.png" alt="" loading="lazy">
+          <label for="n_ll">Lechón lactante</label>
+          <p>Lechones que aún se encuentran con la madre.</p>
+          <div class="campo-animal"><input type="number" min="0" step="1" inputmode="numeric" value="0" id="n_ll"><span>animales</span></div>
+        </div>
+        <div class="animal">
+          <img src="cerdo-precebo.png" alt="" loading="lazy">
+          <label for="n_p">Precebo</label>
+          <p>Animales después del destete, antes de la etapa de levante.</p>
+          <div class="campo-animal"><input type="number" min="0" step="1" inputmode="numeric" value="0" id="n_p"><span>animales</span></div>
+        </div>
+        <div class="animal">
+          <img src="cerdo-levante.png" alt="" loading="lazy">
+          <label for="n_l">Levante</label>
+          <p>Animales en etapa de crecimiento.</p>
+          <div class="campo-animal"><input type="number" min="0" step="1" inputmode="numeric" value="0" id="n_l"><span>animales</span></div>
+        </div>
+        <div class="animal">
+          <img src="cerdo-ceba.png" alt="" loading="lazy">
+          <label for="n_c">Ceba</label>
+          <p>Animales destinados a la etapa final de engorde.</p>
+          <div class="campo-animal"><input type="number" min="0" step="1" inputmode="numeric" value="100" id="n_c"><span>animales</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="resultado-ce" aria-live="polite">
+      <span>Población total equivalente:</span>
+      <strong id="out_ce">—</strong>
+    </div>
+
+  </section>
+
+  <!-- 3. CAUDAL DE DISEÑO -->
+  <!-- 3. CAUDAL -->
+  <section class="step paso" id="sec-caudal">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 3</span>
+      <div>
+        <h2>Caudal de diseño</h2>
+        <p class="sub sub--ancho">El caudal de diseño corresponde al volumen de porcinaza que llegará a las unidades de tratamiento cada día. Se calcula a partir de la población porcina, el escenario seleccionado y el agua utilizada en las actividades de lavado.</p>
+      </div>
+    </div>
+
+    <div class="caudal-intro">
+      <img src="caudal-ilustracion.png" alt="" class="caudal-intro__img">
+      <div class="caja-borde">
+        <h3>¿Por qué cambia el caudal?</h3>
+        <p>Cuando se realiza la separación sólido-líquido, una parte de los sólidos se retira antes del tratamiento de la fracción líquida. Por esto, el caudal que continúa hacia las unidades de tratamiento es menor que en el escenario sin separación.</p>
+      </div>
+    </div>
+
+    <div class="caudal-resultados cs" id="caudalResultados">
+
+      <div class="escenario-banner">
+        <span class="escenario-banner__ico" aria-hidden="true">✓</span>
+        <div>
+          <h3>Escenario seleccionado: <span id="caudalEscNombre">Con separación (CS)</span></h3>
+          <p id="caudalEscTexto"></p>
+        </div>
+      </div>
+
+      <table class="tabla-caudal">
+        <thead><tr><th scope="col">Caudales calculados</th><th scope="col">Resultado</th></tr></thead>
+        <tbody id="tbl_caudal"></tbody>
+      </table>
+
+      <div class="nota-solidos" id="notaSolidos">
+        <span class="nota-solidos__ico" aria-hidden="true">!</span>
+        <div>
+          <h3>Sobre la fracción sólida</h3>
+          <p>Los sólidos retirados <span id="solidosRetirados"></span> no hacen parte del caudal de diseño del tratamiento líquido. Este flujo se utilizará posteriormente para dimensionar las unidades de manejo de sólidos (lechos de secado, marquesina y compostaje).</p>
+        </div>
+      </div>
+    </div>
+
+    <details class="adv">
+      <summary>
+        <svg class="adv__engrane" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span>Opciones avanzadas — parámetros de caudal</span>
+        <svg class="adv__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="grid cols-4">
+        <div><label for="p_mexc">Producción de excretas (kg/CE·d)</label><input type="number" step="0.01" value="5.01" id="p_mexc"></div>
+        <div><label for="p_rho">Densidad de la porcinaza (kg/m³)</label><input type="number" step="1" value="1000" id="p_rho"></div>
+        <div><label for="p_qalav">Agua de lavado (L/CE·d)</label><input type="number" step="0.1" value="12" id="p_qalav"></div>
+        <div><label for="p_redlav">Reducción del agua de lavado con separación (%)</label><input type="number" step="1" value="25" id="p_redlav"></div>
+        <div><label for="p_es_sep">Eficiencia de la separación sólido-líquido (%)</label><input type="number" step="1" value="55" id="p_es_sep"></div>
+        <div><label for="p_fsol">Fracción sólida de las excretas (%)</label><input type="number" step="1" value="55" id="p_fsol"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 4. TANQUE RECEPCION -->
+  <!-- 4. TANQUE DE RECEPCIÓN -->
+  <section class="step paso" id="sec-recepcion">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 4</span>
+      <div>
+        <h2>Tanque de recepción</h2>
+        <p class="sub sub--ancho">Primera unidad del sistema: recibe la fracción líquida, amortigua el caudal y permite la sedimentación de los sólidos más pesados.</p>
+      </div>
+    </div>
+
+    <div class="unidad">
+      <div class="unidad__visual">
+        <img src="tanque-recepcion-ilustracion.png" alt="Ilustración del tanque de recepción cubierto, con pantallas deflectoras, salida hacia el biodigestor, altura útil mínima de 1 m y tolva de lodos que descarga hacia los lechos de secado como máximo cada dos días">
+        <button type="button" class="btn-plano-unidad" onclick="abrirPlano('planoTanque')">
+          <span class="btn-plano-unidad__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+          </span>
+          <span>Ver plano detallado del tanque <small>con tus dimensiones calculadas</small></span>
+          <svg class="btn-plano-unidad__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="unidad__datos">
+        <h3 class="dimensiones-titulo">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 42 13v22L24 44 6 35V13z" fill="#7C9A82"/><path d="M24 4 42 13 24 22 6 13z" fill="#A9C0AC"/><path d="M24 22v22L6 35V13z" fill="#5E7D64"/></svg>
+          Dimensiones del tanque
+        </h3>
+        <table class="tabla-dimensiones">
+          <tbody id="tbl_recepcion"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <details class="adv">
+      <summary>
+        <svg class="adv__engrane" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span>Opciones avanzadas — tanque de recepción</span>
+        <svg class="adv__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="grid cols-4">
+        <div><label for="p_trh">Tiempo de retención hidráulica (d)</label><input type="number" step="0.1" value="1" id="p_trh"></div>
+        <div><label for="p_sst_cs">Concentración de SST con separación (kg/m³)</label><input type="number" step="0.01" value="6.103" id="p_sst_cs"></div>
+        <div><label for="p_sst_ss">Concentración de SST sin separación (kg/m³)</label><input type="number" step="0.01" value="2.746" id="p_sst_ss"></div>
+        <div><label for="p_esst">Eficiencia de remoción de SST (%)</label><input type="number" step="1" value="60" id="p_esst"></div>
+        <div><label for="p_ta">Tiempo de almacenamiento de lodos (d)</label><input type="number" step="0.5" value="2" id="p_ta"></div>
+        <div><label for="p_rho_lodo">Densidad del lodo (kg/m³)</label><input type="number" step="1" value="1030" id="p_rho_lodo"></div>
+        <div><label for="p_cs_lodo">Concentración de sólidos en el lodo (%)</label><input type="number" step="0.5" value="5" id="p_cs_lodo"></div>
+        <div><label for="p_ang">Ángulo de la tolva (°)</label><input type="number" step="1" value="45" id="p_ang"></div>
+        <div><label for="p_bbase">Ancho de la base de la tolva (m)</label><input type="number" step="0.05" value="0.20" id="p_bbase"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 5. LECHOS DE SECADO -->
+  <!-- 8. LECHOS DE SECADO -->
+  <section class="step paso" id="sec-lechos">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 8</span>
+      <div>
+        <h2>Lechos de secado</h2>
+        <p class="sub sub--ancho">Unidad destinada a reducir la humedad de los sólidos y lodos generados durante el tratamiento, facilitando su manejo y aprovechamiento posterior.</p>
+      </div>
+    </div>
+
+    <div class="unidad">
+      <div class="unidad__visual">
+        <img src="lechos-ilustracion.png" alt="Ilustración de dos lechos de secado cubiertos, con capas de lodo, adobe, arena, grava media y grava gruesa, y borde libre de 0,5 a 0,9 m">
+        <button type="button" class="btn-plano-unidad" onclick="abrirPlano('planoLechos')">
+          <span class="btn-plano-unidad__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+          </span>
+          <span>Ver plano detallado del lecho de secado <small>con tus dimensiones calculadas</small></span>
+          <svg class="btn-plano-unidad__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="unidad__datos">
+        <h3 class="dimensiones-titulo">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 42 13v22L24 44 6 35V13z" fill="#7C9A82"/><path d="M24 4 42 13 24 22 6 13z" fill="#A9C0AC"/><path d="M24 22v22L6 35V13z" fill="#5E7D64"/></svg>
+          Dimensiones del lecho de secado
+        </h3>
+        <table class="tabla-dimensiones">
+          <tbody id="tbl_lechos"></tbody>
+        </table>
+        <p class="recordatorio">Recuerda contar con dos o más lechos para que se permita alternar su uso y facilitar las labores de retiro del material seco, limpieza y mantenimiento.</p>
+      </div>
+    </div>
+
+    <details class="adv">
+      <summary>
+        <svg class="adv__engrane" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span>Opciones avanzadas — lechos de secado</span>
+        <svg class="adv__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="grid cols-4">
+        <div><label for="p_ts">Tiempo de secado (d)</label><input type="number" step="1" value="18" id="p_ts"></div>
+        <div><label for="p_tl">Tiempo de limpieza (d)</label><input type="number" step="1" value="2" id="p_tl"></div>
+        <div><label for="p_qs">Carga superficial de sólidos (kg SST/m²·año)</label><input type="number" step="1" value="135" id="p_qs"></div>
+        <div><label for="p_hlecho">Altura del medio filtrante (m)</label><input type="number" step="0.05" value="0.60" id="p_hlecho"></div>
+        <div><label for="p_hbl_lecho">Borde libre (m)</label><input type="number" step="0.05" value="0.50" id="p_hbl_lecho"></div>
+        <div><label for="p_hi_lecho">Humedad inicial del lodo (%)</label><input type="number" step="1" value="95" id="p_hi_lecho"></div>
+        <div><label for="p_hf_lecho">Humedad final del lodo (%)</label><input type="number" step="1" value="50" id="p_hf_lecho"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 6. MARQUESINA -->
+  <!-- 9. MARQUESINA DE SECADO (solo CS) -->
+  <section class="step paso" id="sec-marquesina">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 9</span>
+      <div>
+        <h2>Marquesina de secado</h2>
+        <p class="sub sub--ancho">La marquesina permite continuar el secado de la fracción sólida en un espacio protegido de la lluvia, favoreciendo la reducción de humedad antes de su manejo o aprovechamiento.</p>
+      </div>
+    </div>
+
+    <div class="unidad">
+      <div class="unidad__visual">
+        <img src="marquesina-ilustracion.png" alt="Ilustración de una marquesina de secado con cubierta plástica, capa de lodo de 0,1 m y cerramiento de 0,8 a 1 m">
+        <button type="button" class="btn-plano-unidad" onclick="abrirPlano('planoMarquesina')">
+          <span class="btn-plano-unidad__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+          </span>
+          <span>Ver plano detallado de la marquesina <small>con tus dimensiones calculadas</small></span>
+          <svg class="btn-plano-unidad__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="unidad__datos">
+        <h3 class="dimensiones-titulo">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 42 13v22L24 44 6 35V13z" fill="#7C9A82"/><path d="M24 4 42 13 24 22 6 13z" fill="#A9C0AC"/><path d="M24 22v22L6 35V13z" fill="#5E7D64"/></svg>
+          Dimensiones de la marquesina
+        </h3>
+        <table class="tabla-dimensiones">
+          <tbody id="tbl_marquesina"></tbody>
+        </table>
+        <p class="recordatorio">Recuerda contar con dos o más marquesinas para que se permita alternar su uso y facilitar las labores de retiro del material seco, limpieza y mantenimiento.</p>
+      </div>
+    </div>
+
+    <details class="adv">
+      <summary>
+        <svg class="adv__engrane" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span>Opciones avanzadas — marquesina de secado</span>
+        <svg class="adv__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="grid cols-4">
+        <div><label for="p_tcd">Ciclo de deshidratación (d)</label><input type="number" step="1" value="10" id="p_tcd"></div>
+        <div><label for="p_hps">Altura de la capa de porcinaza (m)</label><input type="number" step="0.01" value="0.10" id="p_hps"></div>
+        <div><label for="p_hi_mq">Humedad inicial (%)</label><input type="number" step="1" value="80" id="p_hi_mq"></div>
+        <div><label for="p_hf_mq">Humedad final (%)</label><input type="number" step="1" value="50" id="p_hf_mq"></div>
+        <div><label for="p_rhoi">Densidad de la fracción sólida (kg/m³)</label><input type="number" step="1" value="840" id="p_rhoi"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 7. COMPOSTAJE -->
+  <!-- 10. COMPOSTAJE -->
+  <section class="step paso" id="sec-compost">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 10</span>
+      <div>
+        <h2>Compostaje</h2>
+        <p class="sub sub--ancho">La fracción sólida previamente secada se lleva a compostaje para favorecer su estabilización y obtener un material orgánico que pueda ser aprovechado de manera segura.</p>
+      </div>
+    </div>
+
+    <div class="unidad">
+      <div class="unidad__visual">
+        <img src="compostaje-ilustracion.png" alt="Ilustración de la zona de compostaje cubierta: fracción sólida de la porcinaza, materiales ricos en carbono y la mezcla de ambos en una pila de máximo 1,5 a 2 m de altura">
+        <button type="button" class="btn-plano-unidad" onclick="abrirPlano('planoCompost')">
+          <span class="btn-plano-unidad__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+          </span>
+          <span>Ver plano detallado del compostaje <small>con tus dimensiones calculadas</small></span>
+          <svg class="btn-plano-unidad__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="unidad__datos">
+        <h3 class="dimensiones-titulo">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 42 13v22L24 44 6 35V13z" fill="#7C9A82"/><path d="M24 4 42 13 24 22 6 13z" fill="#A9C0AC"/><path d="M24 22v22L6 35V13z" fill="#5E7D64"/></svg>
+          Dimensiones del compostaje
+        </h3>
+        <table class="tabla-dimensiones">
+          <tbody id="tbl_compost"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="materiales">
+      <h3 class="materiales__titulo">Materiales para favorecer el correcto desarrollo del compostaje</h3>
+      <div class="materiales__tabla">
+        <table>
+          <thead>
+            <tr><th scope="col">Material<br><small>(rico en carbono)</small></th><th scope="col">Relación porcinaza:material</th><th scope="col">Explicación</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Pasto de corte picado y fresco</td><td class="rel">1:1</td><td>Por una (1) unidad de porcinaza se adiciona una (1) unidad de pasto picado fresco.</td></tr>
+            <tr><td>Pulpa de café fresca</td><td class="rel">1:1</td><td>Por una (1) unidad de porcinaza se adiciona una (1) unidad de pulpa de café fresca.</td></tr>
+            <tr><td>Bagazo de caña</td><td class="rel">10:1</td><td>Por diez (10) unidades de porcinaza se adiciona una (1) unidad de bagazo.</td></tr>
+            <tr><td>Aserrín o virutas</td><td class="rel">10:1</td><td>Por diez (10) unidades de porcinaza se adiciona una (1) unidad de aserrín.</td></tr>
+          </tbody>
+        </table>
+        <p class="materiales__nota"><b>Nota.</b> Una unidad puede ser una palada, un baldado, un bulto, una carretada, una volquetada, etc.</p>
+      </div>
+    </div>
+
+    <details class="adv">
+      <summary>
+        <svg class="adv__engrane" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span>Opciones avanzadas — compostaje</span>
+        <svg class="adv__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="grid cols-4">
+        <div><label for="p_rhof">Densidad de la fracción sólida al 50 % de humedad (kg/m³)</label><input type="number" step="1" value="500" id="p_rhof"></div>
+        <div><label for="p_rhop">Densidad del pasto picado (kg/m³)</label><input type="number" step="1" value="500" id="p_rhop"></div>
+        <div><label for="p_rel_cn">Relación porcinaza:material</label><input type="number" step="0.1" value="1" id="p_rel_cn"></div>
+        <div><label for="p_hp">Altura de la pila (m)</label><input type="number" step="0.1" value="1.5" id="p_hp"></div>
+        <div><label for="p_bmax">Ancho máximo de la pila (m)</label><input type="number" step="0.1" value="4.0" id="p_bmax"></div>
+        <div><label for="p_tll">Días de llenado por pila (d)</label><input type="number" step="1" value="10" id="p_tll"></div>
+        <div><label for="p_tcc">Ciclo de compostaje (d)</label><input type="number" step="1" value="60" id="p_tcc"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 8. BIODIGESTOR -->
+  <!-- 5. BIODIGESTOR -->
+  <section class="step paso" id="sec-biodigestor">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 5</span>
+      <div>
+        <h2>Biodigestor</h2>
+        <p class="sub sub--ancho">Unidad destinada a la estabilización anaerobia de la materia orgánica presente en la porcinaza. Durante el proceso se produce biogás y se obtiene biol como efluente.</p>
+      </div>
+    </div>
+
+    <div class="unidad">
+      <div class="unidad__visual">
+        <img src="biodigestor-ilustracion.png" alt="Ilustración de un biodigestor tubular enterrado en una zanja, con válvula de alivio en la parte superior y caja de salida del biol">
+        <button type="button" class="btn-plano-unidad" onclick="abrirPlano('planoBiodigestor')">
+          <span class="btn-plano-unidad__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+          </span>
+          <span>Ver plano detallado del biodigestor <small>con tus dimensiones calculadas</small></span>
+          <svg class="btn-plano-unidad__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="unidad__datos">
+        <h3 class="dimensiones-titulo">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 42 13v22L24 44 6 35V13z" fill="#7C9A82"/><path d="M24 4 42 13 24 22 6 13z" fill="#A9C0AC"/><path d="M24 22v22L6 35V13z" fill="#5E7D64"/></svg>
+          Dimensiones del biodigestor
+        </h3>
+        <table class="tabla-dimensiones">
+          <tbody id="tbl_biodigestor"></tbody>
+        </table>
+        <p class="nota-biodigestor" id="notaBiodigestor"></p>
+      </div>
+    </div>
+
+    <details class="adv">
+      <summary>
+        <svg class="adv__engrane" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span>Opciones avanzadas — biodigestor</span>
+        <svg class="adv__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="grid cols-4">
+        <div><label for="p_trh_bio">Tiempo de retención hidráulica (d)</label><input type="number" step="1" value="35" id="p_trh_bio"></div>
+        <div><label for="p_fg">Factor de mayoración por biogás</label><input type="number" step="0.01" value="1.15" id="p_fg"></div>
+        <div><label for="p_binf">Ancho inferior de la zanja (m)</label><input type="number" step="0.1" value="2.0" id="p_binf"></div>
+        <div><label for="p_bsup">Ancho superior de la zanja (m)</label><input type="number" step="0.1" value="2.5" id="p_bsup"></div>
+        <div><label for="p_hz">Profundidad de la zanja (m)</label><input type="number" step="0.1" value="1.5" id="p_hz"></div>
+        <div><label for="p_lr">Largo comercial de cada biodigestor (m)</label><input type="number" step="1" value="20" id="p_lr"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 9. TANQUE BIOL -->
+  <!-- 6. TANQUE DE BIOL -->
+  <section class="step paso" id="sec-biol">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 6</span>
+      <div>
+        <h2>Tanque de biol</h2>
+        <p class="sub sub--ancho">Unidad destinada al almacenamiento temporal del biol obtenido después del proceso de biodigestión. Esta unidad se dimensiona únicamente cuando el biol será destinado a aprovechamiento.</p>
+      </div>
+    </div>
+
+    <div class="unidad">
+      <div class="unidad__visual">
+        <img src="tanque-biol-ilustracion.png" alt="Ilustración del tanque de biol semienterrado y cubierto, con tubería de entrada, válvula de salida y borde libre de 0,3 m">
+        <button type="button" class="btn-plano-unidad" onclick="abrirPlano('planoBiol')">
+          <span class="btn-plano-unidad__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+          </span>
+          <span>Ver plano detallado del tanque de biol <small>con tus dimensiones calculadas</small></span>
+          <svg class="btn-plano-unidad__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="unidad__datos">
+        <h3 class="dimensiones-titulo">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 42 13v22L24 44 6 35V13z" fill="#7C9A82"/><path d="M24 4 42 13 24 22 6 13z" fill="#A9C0AC"/><path d="M24 22v22L6 35V13z" fill="#5E7D64"/></svg>
+          Dimensiones del tanque de biol
+        </h3>
+        <table class="tabla-dimensiones">
+          <tbody id="tbl_biol"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <details class="adv">
+      <summary>
+        <svg class="adv__engrane" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span>Opciones avanzadas — tanque de biol</span>
+        <svg class="adv__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="grid cols-4">
+        <div><label for="p_ta_biol">Tiempo de almacenamiento (d)</label><input type="number" step="1" value="5" id="p_ta_biol"></div>
+        <div><label for="p_hbl_biol">Borde libre (m)</label><input type="number" step="0.05" value="0.3" id="p_hbl_biol"></div>
+        <div><label for="p_htb">Altura útil del tanque (m)</label><input type="number" step="0.1" value="2.0" id="p_htb"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 10. DESTINO DEL BIOL -->
+  <!-- 7. DESTINO DEL BIOL -->
+  <section class="step paso" id="sec-destino">
+
+    <div class="paso-encabezado">
+      <span class="paso-badge">Paso 7</span>
+      <div>
+        <h2>Destino del biol</h2>
+        <p class="sub sub--ancho">Define si el biol puede aprovecharse o si requiere tratamiento terciario antes de su vertimiento.</p>
+      </div>
+    </div>
+
+    <!-- Bloque 1: cultivo -->
+    <div class="bloque-num bloque-num--fondo">
+      <div class="bloque-num__cab">
+        <span class="bloque-num__n" aria-hidden="true">1</span>
+        <div>
+          <h3>Selecciona un cultivo de referencia</h3>
+          <p>Selecciona el cultivo sobre el cual se aplicará el biol y verifica los resultados de la aplicación.</p>
+        </div>
+      </div>
+
+      <div class="campos-biol">
+        <div class="campo">
+          <label for="cultivo">Cultivo</label>
+          <select id="cultivo">
+            <option value="estrella">Pasto estrella</option>
+            <option value="boton">Botón de oro</option>
+            <option value="elefante">Pasto elefante</option>
+            <option value="otro">Otro cultivo</option>
+          </select>
+          <small class="campo__ayuda" id="ayudaCultivo"></small>
+        </div>
+        <div class="campo solo-cs">
+          <label for="conc_n_cs">Nitrógeno en el biol, con separación (kg/m³)</label>
+          <input type="number" step="0.01" value="0.60" id="conc_n_cs">
+        </div>
+        <div class="campo solo-ss">
+          <label for="conc_n_ss">Nitrógeno en el biol, sin separación (kg/m³)</label>
+          <input type="number" step="0.01" value="1.08" id="conc_n_ss">
+        </div>
+        <div class="campo solo-otro">
+          <label for="otro_tfn">Tasa de fijación de nitrógeno del cultivo (kg N/ha·año)</label>
+          <input type="number" step="1" min="1" value="500" id="otro_tfn">
+        </div>
+        <div class="campo solo-otro">
+          <label for="otro_frec">Frecuencia de aspersión (cada cuántos días)</label>
+          <input type="number" step="1" min="1" value="30" id="otro_frec">
+        </div>
+      </div>
+
+      <div class="resultados-aplicacion">
+        <div class="resultados-aplicacion__titulo">
+          <span class="gota" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3c3.5 4.6 6 8 6 11a6 6 0 0 1-12 0c0-3 2.5-6.4 6-11z"/></svg>
+          </span>
+          <h4>Resultados de aplicación</h4>
+        </div>
+        <table class="tabla-aplicacion">
+          <tbody id="tbl_aplicacion"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bloque 2: área disponible -->
+    <div class="bloque-num">
+      <div class="bloque-num__cab">
+        <span class="bloque-num__n" aria-hidden="true">2</span>
+        <div>
+          <h3>¿Tienes terreno suficiente para aplicar el biol?</h3>
+          <p>Ingresa el área disponible para el riego del biol.</p>
+        </div>
+      </div>
+      <div class="campo campo--ha">
+        <label for="ha_disp">Hectáreas disponibles para riego</label>
+        <div class="campo-unidad"><input type="number" step="0.1" min="0" value="0" id="ha_disp"><span>ha</span></div>
+      </div>
+      <div id="veredicto_biol" class="veredicto" role="status"></div>
+    </div>
+
+    <!-- Bloque 3: tratamiento terciario -->
+    <div class="bloque-num" id="bloque_terciario">
+      <div class="bloque-num__cab">
+        <span class="bloque-num__n" aria-hidden="true">3</span>
+        <div>
+          <h3>Alternativas de tratamiento terciario</h3>
+          <p>Si no dispones del área requerida, selecciona una alternativa para conocer sus dimensiones. Usa el botón <b>Ver</b> para conocer cómo es cada tecnología.</p>
+        </div>
+      </div>
+      <p class="caudal-terciario" id="caudalTerciario"></p>
+      <div class="tabla-terciario-wrap">
+        <table class="tabla-terciario">
+          <thead>
+            <tr><th scope="col"><span class="sr-only">Seleccionar</span></th><th scope="col">Tecnología</th><th scope="col">Área (m²)</th><th scope="col">Ancho (m)</th><th scope="col">Largo (m)</th><th scope="col"><span class="sr-only">Ver tecnología</span></th></tr>
+          </thead>
+          <tbody id="tbl_terciario"></tbody>
+        </table>
+      </div>
+      <p class="nota-info"><span aria-hidden="true">i</span> La alternativa seleccionada debe ajustarse al terreno y a las condiciones del sistema. En zonas de interés hidrogeológico se recomienda priorizar las alternativas de descarga cero.</p>
+
+      <details class="adv">
+        <summary>
+          <svg class="adv__engrane" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+          <span>Opciones avanzadas — tratamiento terciario</span>
+          <svg class="adv__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="adv-grupos">
+          <fieldset>
+            <legend>Generales (humedales)</legend>
+            <div class="grid cols-4">
+              <div><label for="t_temp">Temperatura del agua (°C)</label><input type="number" step="0.5" value="25" id="t_temp"></div>
+              <div class="solo-cs"><label for="t_co_cs">DBO de entrada, con separación (mg/L)</label><input type="number" step="1" value="897" id="t_co_cs"></div>
+              <div class="solo-cs"><label for="t_ce_cs">DBO de salida, con separación (mg/L)</label><input type="number" step="1" value="269" id="t_ce_cs"></div>
+              <div class="solo-ss"><label for="t_co_ss">DBO de entrada, sin separación (mg/L)</label><input type="number" step="1" value="931" id="t_co_ss"></div>
+              <div class="solo-ss"><label for="t_ce_ss">DBO de salida, sin separación (mg/L)</label><input type="number" step="1" value="279" id="t_ce_ss"></div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Humedal de flujo superficial (HC-FS)</legend>
+            <div class="grid cols-4">
+              <div><label for="t_fs_k20">Constante de remoción k₂₀ (d⁻¹)</label><input type="number" step="0.001" value="0.678" id="t_fs_k20"></div>
+              <div><label for="t_fs_theta">Coeficiente de temperatura θ</label><input type="number" step="0.01" value="1.06" id="t_fs_theta"></div>
+              <div><label for="t_fs_d">Profundidad del agua (m)</label><input type="number" step="0.01" value="0.55" id="t_fs_d"></div>
+              <div><label for="t_fs_p">Porosidad</label><input type="number" step="0.01" value="0.75" id="t_fs_p"></div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Humedal de flujo subsuperficial (HC-FSS)</legend>
+            <div class="grid cols-4">
+              <div><label for="t_fss_k20">Constante de remoción k₂₀ (d⁻¹)</label><input type="number" step="0.001" value="1.104" id="t_fss_k20"></div>
+              <div><label for="t_fss_theta">Coeficiente de temperatura θ</label><input type="number" step="0.01" value="1.06" id="t_fss_theta"></div>
+              <div><label for="t_fss_d">Profundidad del lecho (m)</label><input type="number" step="0.01" value="0.45" id="t_fss_d"></div>
+              <div><label for="t_fss_p">Porosidad del medio</label><input type="number" step="0.01" value="0.38" id="t_fss_p"></div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Filtros</legend>
+            <div class="grid cols-4">
+              <div><label for="t_fia_lw">FIA — carga hidráulica (m³/m²·d)</label><input type="number" step="0.01" value="0.45" id="t_fia_lw"></div>
+              <div><label for="t_fv_m">FV — coeficiente m</label><input type="number" step="0.1" value="2" id="t_fv_m"></div>
+              <div><label for="t_fv_b">FV — exponente b</label><input type="number" step="0.1" value="1" id="t_fv_b"></div>
+              <div><label for="t_dz_tre">FV-DZ — tiempo de retención evapotranspirativa, T<sub>RE</sub></label><input type="number" step="0.01" value="21.98" id="t_dz_tre"></div>
+              <div><label for="t_efa_ki">FV-EFA — coeficiente Ki</label><input type="number" step="0.05" value="0.5" id="t_efa_ki"></div>
+              <div><label for="t_efa_tre">FV-EFA — tiempo de retención evapotranspirativa, T<sub>RE</sub></label><input type="number" step="0.01" value="21.98" id="t_efa_tre"></div>
+              <div><label for="t_efa_p">FV-EFA — precipitación P (L/m²·d)</label><input type="number" step="0.01" value="6.23" id="t_efa_p"></div>
+            </div>
+          </fieldset>
+        </div>
+      </details>
+    </div>
+  </section>
+
+</div>
+
+<div class="step-footer">
+  <div class="inner">
+    <button type="button" class="nav-btn" id="btnPrev" onclick="prevStep()">← Atrás</button>
+    <div class="footer-centro">
+      <span class="counter" id="stepCounter">Paso 1 de 10</span>
+      <button type="button" class="btn-resumen" onclick="abrirResumen()">Ver resumen</button>
+    </div>
+    <button type="button" class="nav-btn" id="btnNext" onclick="nextStep()">Siguiente →</button>
+  </div>
+</div>
+
+<!-- Plano detallado del tanque de recepción con las dimensiones calculadas -->
+<div class="lightbox plano-modal" id="planoTanque" role="dialog" aria-modal="true" aria-labelledby="planoTanqueTitulo" onclick="cerrarPlano(event, 'planoTanque')">
+  <div class="plano-modal__hoja" onclick="event.stopPropagation()">
+    <div class="plano-modal__barra">
+      <h2 id="planoTanqueTitulo">Plano del tanque de recepción</h2>
+      <button type="button" class="close-lb" onclick="cerrarPlano(null, 'planoTanque')" aria-label="Cerrar plano">✕</button>
+    </div>
+    <p class="plano-modal__pista">Desliza hacia los lados para ver el plano completo.</p>
+    <div class="plano-modal__lienzo">
+    <svg class="plano-svg" viewBox="0 0 2000 1410" role="img" aria-label="Plano en corte del tanque de recepción con largo, ancho, altura útil y altura de la tolva calculados">
+      <image href="plano-tanque-recepcion.png" width="2000" height="1410"/>
+      <g class="plano-cotas">
+        <!-- Largo -->
+        <rect x="860" y="246" width="230" height="48"/>
+        <text x="975" y="282" text-anchor="middle">Largo: <tspan id="pl_largo">—</tspan> m</text>
+        <!-- Ancho -->
+        <rect x="860" y="843" width="232" height="48"/>
+        <text x="976" y="879" text-anchor="middle">Ancho: <tspan id="pl_ancho">—</tspan> m</text>
+        <!-- Altura útil -->
+        <rect x="200" y="538" width="175" height="80"/>
+        <text x="287" y="568" text-anchor="middle">Altura útil</text>
+        <text x="287" y="606" text-anchor="middle"><tspan id="pl_util">—</tspan> m</text>
+        <!-- Altura de la tolva -->
+        <rect x="505" y="1198" width="282" height="50"/>
+        <text x="646" y="1234" text-anchor="middle">Altura tolva: <tspan id="pl_tolva">—</tspan> m</text>
+      </g>
+      <!-- Resumen -->
+      <g class="plano-resumen">
+        <rect x="1430" y="900" width="500" height="250" rx="18"/>
+        <text x="1465" y="955" class="t">Dimensiones calculadas</text>
+        <text x="1465" y="1010">Volumen: <tspan id="pl_vol">—</tspan> m³</text>
+        <text x="1465" y="1058">Profundidad útil: <tspan id="pl_util2">—</tspan> m</text>
+        <text x="1465" y="1106">Profundidad total: <tspan id="pl_total">—</tspan> m</text>
+      </g>
+    </svg>
+    </div>
+    <p class="plano-modal__nota">Las medidas de las pantallas deflectoras (0,6–0,9 m y 0,45–0,60 m), el borde libre con natas (0,4 m) y la pendiente de la tolva (45° a 65°) son recomendaciones constructivas.</p>
+  </div>
+</div>
+
+<!-- Plano detallado del biodigestor con las dimensiones calculadas -->
+<div class="lightbox plano-modal" id="planoBiodigestor" role="dialog" aria-modal="true" aria-labelledby="planoBioTitulo" onclick="cerrarPlano(event, 'planoBiodigestor')">
+  <div class="plano-modal__hoja" onclick="event.stopPropagation()">
+    <div class="plano-modal__barra">
+      <h2 id="planoBioTitulo">Plano del biodigestor tubular</h2>
+      <button type="button" class="close-lb" onclick="cerrarPlano(null, 'planoBiodigestor')" aria-label="Cerrar plano">✕</button>
+    </div>
+    <p class="plano-modal__pista">Desliza hacia los lados para ver el plano completo.</p>
+    <div class="plano-modal__lienzo">
+    <svg class="plano-svg" viewBox="0 0 2000 1410" role="img" aria-label="Plano del biodigestor con anchos de zanja, altura de la zanja y largo calculados">
+      <image href="plano-biodigestor.png" width="2000" height="1410"/>
+      <g class="plano-cotas">
+        <rect x="830" y="105" width="300" height="62"/>
+        <text x="978" y="134" text-anchor="middle">Ancho superior</text>
+        <text x="978" y="164" text-anchor="middle"><tspan id="plb_bsup">—</tspan> m</text>
+        <rect x="1185" y="345" width="175" height="62"/>
+        <text x="1272" y="374" text-anchor="middle">Altura zanja</text>
+        <text x="1272" y="404" text-anchor="middle"><tspan id="plb_hz">—</tspan> m</text>
+        <rect x="830" y="505" width="300" height="62"/>
+        <text x="978" y="532" text-anchor="middle">Ancho inferior</text>
+        <text x="978" y="562" text-anchor="middle"><tspan id="plb_binf">—</tspan> m</text>
+        <rect x="770" y="1163" width="430" height="46"/>
+        <text x="985" y="1197" text-anchor="middle" id="plb_largo">Largo: — m</text>
+      </g>
+      <g class="plano-resumen">
+        <rect x="40" y="40" width="470" height="200" rx="18"/>
+        <text x="72" y="94" class="t">Dimensiones calculadas</text>
+        <text x="72" y="148">Volumen: <tspan id="plb_vol">—</tspan> m³</text>
+        <text x="72" y="198" id="plb_num">Biodigestores: 1</text>
+      </g>
+    </svg>
+    </div>
+    <p class="plano-modal__nota">La pendiente longitudinal (0,5–1 %), las zanjas a 45° para las tuberías y la columna de agua de la válvula de alivio son recomendaciones constructivas.</p>
+  </div>
+</div>
+
+<!-- Plano detallado del tanque de biol con las dimensiones calculadas -->
+<div class="lightbox plano-modal" id="planoBiol" role="dialog" aria-modal="true" aria-labelledby="planoBiolTitulo" onclick="cerrarPlano(event, 'planoBiol')">
+  <div class="plano-modal__hoja" onclick="event.stopPropagation()">
+    <div class="plano-modal__barra">
+      <h2 id="planoBiolTitulo">Plano del tanque de biol</h2>
+      <button type="button" class="close-lb" onclick="cerrarPlano(null, 'planoBiol')" aria-label="Cerrar plano">✕</button>
+    </div>
+    <p class="plano-modal__pista">Desliza hacia los lados para ver el plano completo.</p>
+    <div class="plano-modal__lienzo">
+    <svg class="plano-svg" viewBox="0 0 2000 1410" role="img" aria-label="Plano en corte del tanque de biol con ancho, largo, altura útil y altura total calculados">
+      <image href="plano-tanque-biol.png" width="2000" height="1410"/>
+      <g class="plano-cotas">
+        <rect x="855" y="195" width="215" height="46"/>
+        <text x="962" y="230" text-anchor="middle">Ancho: <tspan id="pltb_ancho">—</tspan> m</text>
+        <rect x="1270" y="378" width="135" height="70"/>
+        <text x="1336" y="403" text-anchor="middle">Altura total</text>
+        <text x="1336" y="438" text-anchor="middle"><tspan id="pltb_total">—</tspan> m</text>
+        <rect x="890" y="788" width="220" height="46"/>
+        <text x="999" y="823" text-anchor="middle">Largo: <tspan id="pltb_largo">—</tspan> m</text>
+        <rect x="1405" y="858" width="200" height="38"/>
+        <text x="1410" y="888">Borde libre <tspan id="pltb_bl">—</tspan> m</text>
+        <rect x="1440" y="1098" width="120" height="70"/>
+        <text x="1500" y="1123" text-anchor="middle">Altura útil</text>
+        <text x="1500" y="1158" text-anchor="middle"><tspan id="pltb_util">—</tspan> m</text>
+      </g>
+      <g class="plano-resumen">
+        <rect x="1560" y="330" width="410" height="150" rx="18"/>
+        <text x="1590" y="384" class="t">Volumen calculado</text>
+        <text x="1590" y="440"><tspan id="pltb_vol">—</tspan> m³</text>
+      </g>
+    </svg>
+    </div>
+    <p class="plano-modal__nota">Se recomienda cubrir el tanque para evitar el ingreso de agua lluvia e impermeabilizar sus paredes y fondo.</p>
+  </div>
+</div>
+
+<!-- Plano detallado del lecho de secado con las dimensiones calculadas -->
+<div class="lightbox plano-modal" id="planoLechos" role="dialog" aria-modal="true" aria-labelledby="planoLechosTitulo" onclick="cerrarPlano(event, 'planoLechos')">
+  <div class="plano-modal__hoja" onclick="event.stopPropagation()">
+    <div class="plano-modal__barra">
+      <h2 id="planoLechosTitulo">Plano del lecho de secado</h2>
+      <button type="button" class="close-lb" onclick="cerrarPlano(null, 'planoLechos')" aria-label="Cerrar plano">✕</button>
+    </div>
+    <p class="plano-modal__pista">Desliza hacia los lados para ver el plano completo.</p>
+    <div class="plano-modal__lienzo">
+    <svg class="plano-svg" viewBox="0 0 2000 1410" role="img" aria-label="Plano en corte del lecho de secado con ancho, largo, borde libre y capa de lodos calculados">
+      <image href="plano-lechos-secado.png" width="2000" height="1410"/>
+      <g class="plano-cotas">
+        <rect x="900" y="210" width="200" height="44"/>
+        <text x="1000" y="244" text-anchor="middle">Ancho: <tspan id="pll_ancho">—</tspan> m</text>
+        <rect x="320" y="335" width="160" height="72"/>
+        <text x="400" y="362" text-anchor="middle">Borde libre</text>
+        <text x="400" y="397" text-anchor="middle"><tspan id="pll_bl">—</tspan> m</text>
+        <rect x="1425" y="410" width="380" height="42"/>
+        <text x="1430" y="442">Capa de lodos: <tspan id="pll_lodo">—</tspan> m</text>
+        <rect x="890" y="1372" width="210" height="38"/>
+        <text x="995" y="1402" text-anchor="middle">Largo: <tspan id="pll_largo">—</tspan> m</text>
+      </g>
+      <g class="plano-resumen">
+        <rect x="1420" y="705" width="550" height="235" rx="18"/>
+        <text x="1450" y="756" class="t">Dimensiones calculadas</text>
+        <text x="1450" y="808">Área total: <tspan id="pll_area">—</tspan> m²</text>
+        <text x="1450" y="852">Medio filtrante: <tspan id="pll_medio">—</tspan> m</text>
+        <text x="1450" y="896">Altura total: <tspan id="pll_total">—</tspan> m</text>
+      </g>
+    </svg>
+    </div>
+    <p class="plano-modal__nota">Los espesores de cada capa del medio filtrante (arena y gravas), el tamaño de los adobes y su separación, la tubería de desagüe de 100 mm y la pendiente del 1 % son recomendaciones constructivas.</p>
+  </div>
+</div>
+
+<!-- Plano detallado de la marquesina con las dimensiones calculadas -->
+<div class="lightbox plano-modal" id="planoMarquesina" role="dialog" aria-modal="true" aria-labelledby="planoMqTitulo" onclick="cerrarPlano(event, 'planoMarquesina')">
+  <div class="plano-modal__hoja" onclick="event.stopPropagation()">
+    <div class="plano-modal__barra">
+      <h2 id="planoMqTitulo">Plano de la marquesina de secado</h2>
+      <button type="button" class="close-lb" onclick="cerrarPlano(null, 'planoMarquesina')" aria-label="Cerrar plano">✕</button>
+    </div>
+    <p class="plano-modal__pista">Desliza hacia los lados para ver el plano completo.</p>
+    <div class="plano-modal__lienzo">
+    <svg class="plano-svg" viewBox="0 0 2000 1410" role="img" aria-label="Plano en planta y cortes de la marquesina con largo, ancho y capa de lodo calculados">
+      <image href="plano-marquesina.png" width="2000" height="1410"/>
+      <g class="plano-cotas">
+        <!-- Ancho (planta, texto vertical) -->
+        <rect x="150" y="380" width="52" height="170"/>
+        <text x="186" y="465" text-anchor="middle" transform="rotate(-90 186 465)">Ancho: <tspan id="plm_ancho1">—</tspan> m</text>
+        <!-- Largo -->
+        <rect x="470" y="1122" width="250" height="46"/>
+        <text x="595" y="1156" text-anchor="middle">Largo: <tspan id="plm_largo">—</tspan> m</text>
+        <!-- Ancho (corte) -->
+        <rect x="1300" y="922" width="250" height="46"/>
+        <text x="1425" y="956" text-anchor="middle">Ancho: <tspan id="plm_ancho2">—</tspan> m</text>
+        <!-- Capa de lodo -->
+        <rect x="1030" y="840" width="150" height="74"/>
+        <text x="1105" y="868" text-anchor="middle">Capa de lodo</text>
+        <text x="1105" y="902" text-anchor="middle"><tspan id="plm_capa">—</tspan> m</text>
+        <!-- Cerramiento (texto corregido) -->
+        <rect x="1660" y="800" width="180" height="62"/>
+        <text x="1748" y="827" text-anchor="middle" class="fijo">Cerramiento</text>
+        <text x="1748" y="857" text-anchor="middle" class="fijo">0,8 a 1 m</text>
+      </g>
+      <g class="plano-resumen">
+        <rect x="1180" y="180" width="560" height="160" rx="18"/>
+        <text x="1210" y="234" class="t">Área superficial total</text>
+        <text x="1210" y="292"><tspan id="plm_area">—</tspan> m²</text>
+      </g>
+    </svg>
+    </div>
+    <p class="plano-modal__nota">La pendiente del piso (1–2 %), el canal de drenaje, el cerramiento (0,8 a 1 m) y la cubierta plástica son recomendaciones constructivas.</p>
+  </div>
+</div>
+
+<!-- Plano detallado del compostaje con las dimensiones calculadas -->
+<div class="lightbox plano-modal" id="planoCompost" role="dialog" aria-modal="true" aria-labelledby="planoCompostTitulo" onclick="cerrarPlano(event, 'planoCompost')">
+  <div class="plano-modal__hoja" onclick="event.stopPropagation()">
+    <div class="plano-modal__barra">
+      <h2 id="planoCompostTitulo">Plano del compostaje</h2>
+      <button type="button" class="close-lb" onclick="cerrarPlano(null, 'planoCompost')" aria-label="Cerrar plano">✕</button>
+    </div>
+    <p class="plano-modal__pista">Desliza hacia los lados para ver el plano completo.</p>
+    <div class="plano-modal__lienzo">
+    <svg class="plano-svg" viewBox="0 0 2000 1410" role="img" aria-label="Plano de pilas alargadas y celdas de compostaje con ancho, largo y altura de la pila calculados">
+      <image href="plano-compostaje.png" width="2000" height="1410"/>
+      <g class="plano-cotas">
+        <!-- Pilas alargadas -->
+        <rect x="360" y="572" width="145" height="66"/>
+        <text x="432" y="600" text-anchor="middle">Ancho</text>
+        <text x="432" y="632" text-anchor="middle"><tspan class="plc_ancho">—</tspan> m</text>
+        <rect x="660" y="330" width="165" height="140"/>
+        <text x="742" y="368" text-anchor="middle">Altura de</text>
+        <text x="742" y="404" text-anchor="middle">la pila</text>
+        <text x="742" y="442" text-anchor="middle"><tspan class="plc_alto">—</tspan> m</text>
+        <g transform="rotate(-30 1368 490)">
+          <rect x="1268" y="470" width="200" height="40"/>
+          <text x="1368" y="500" text-anchor="middle">Largo: <tspan class="plc_largo">—</tspan> m</text>
+        </g>
+        <!-- Celdas de compostaje -->
+        <rect x="108" y="1030" width="158" height="96"/>
+        <text x="187" y="1068" text-anchor="middle">Altura</text>
+        <text x="187" y="1106" text-anchor="middle"><tspan class="plc_alto">—</tspan> m</text>
+        <rect x="390" y="1212" width="140" height="42"/>
+        <text x="460" y="1244" text-anchor="middle"><tspan class="plc_ancho">—</tspan> m</text>
+        <g transform="rotate(-30 1598 1292)">
+          <rect x="1498" y="1272" width="200" height="40"/>
+          <text x="1598" y="1302" text-anchor="middle">Largo: <tspan class="plc_largo">—</tspan> m</text>
+        </g>
+      </g>
+      <g class="plano-resumen">
+        <rect x="880" y="636" width="460" height="164" rx="18"/>
+        <text x="908" y="686" class="t">Dimensiones calculadas</text>
+        <text x="908" y="734">Número de pilas: <tspan id="plc_num">—</tspan></text>
+        <text x="908" y="780">Área total: <tspan id="plc_area">—</tspan> m²</text>
+      </g>
+    </svg>
+    </div>
+    <p class="plano-modal__nota">Las mismas dimensiones aplican si se compostan en pilas alargadas o en celdas de compostaje. Se recomienda cubrir las pilas para evitar el ingreso de agua lluvia y, si hay tres pilas o más, voltearlas de forma escalonada.</p>
+  </div>
+</div>
+
+<!-- Ficha de cada tecnología de tratamiento terciario -->
+<div class="lightbox plano-modal" id="fichaTerciario" role="dialog" aria-modal="true" aria-labelledby="fichaTTTitulo" onclick="cerrarPlano(event, 'fichaTerciario')">
+  <div class="plano-modal__hoja ficha" onclick="event.stopPropagation()">
+    <div class="plano-modal__barra">
+      <h2 id="fichaTTTitulo">Tecnología</h2>
+      <button type="button" class="close-lb" onclick="cerrarPlano(null, 'fichaTerciario')" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="ficha__cuerpo">
+      <img id="fichaTTImg" src="" alt="">
+      <div class="ficha__texto">
+        <p id="fichaTTDesc"></p>
+        <table class="tabla-dimensiones"><tbody id="fichaTTDim"></tbody></table>
+        <button type="button" class="btn-seleccionar ficha__elegir" id="fichaTTElegir">
+          <span class="ico-check" aria-hidden="true">✓</span><span id="fichaTTElegirTxt">Seleccionar esta alternativa</span>
+        </button>
+      </div>
+    </div>
+    <p class="plano-modal__nota">Ilustración tomada de la Guía de buenas prácticas ambientales para el manejo de la porcinaza en zonas acuíferas.</p>
+  </div>
+</div>
+
+<!-- Resumen final: plano general con las dimensiones calculadas -->
+<div class="lightbox plano-modal" id="resumen" role="dialog" aria-modal="true" aria-labelledby="resumenTitulo" onclick="cerrarPlano(event, 'resumen')">
+  <div class="plano-modal__hoja resumen" onclick="event.stopPropagation()">
+    <div class="plano-modal__barra">
+      <h2 id="resumenTitulo">Resumen del sistema de tratamiento</h2>
+      <button type="button" class="close-lb no-imprimir" onclick="cerrarPlano(null, 'resumen')" aria-label="Cerrar resumen">✕</button>
+    </div>
+    <div class="resumen__datos">
+      <div><span>Escenario</span><b id="resumenEsc">—</b></div>
+      <div><span>Población</span><b id="resumenCE">—</b></div>
+      <div><span>Caudal de diseño</span><b id="resumenQ">—</b></div>
+    </div>
+    <p class="plano-modal__pista">Desliza hacia los lados para ver el plano completo.</p>
+    <div class="plano-modal__lienzo">
+      <svg class="plano-svg plano-resumen-svg" id="planoResumenCS" viewBox="0 0 1400 986" role="img" aria-label="Plano general del sistema con separación con las dimensiones calculadas">
+        <image href="plano-con-separacion.png" width="1400" height="986"/>
+        <g class="tag-res" id="rc_ms"><rect rx="6"/><text x="428" y="140"></text></g><g class="tag-res" id="rc_cp"><rect rx="6"/><text x="740" y="150"></text></g><g class="tag-res" id="rc_tr"><rect rx="6"/><text x="226" y="422"></text></g><g class="tag-res" id="rc_ls"><rect rx="6"/><text x="445" y="490"></text></g><g class="tag-res" id="rc_bd"><rect rx="6"/><text x="330" y="602"></text></g><g class="tag-res" id="rc_tb"><rect rx="6"/><text x="610" y="592"></text></g><g class="tag-res" id="rc_tt"><rect rx="6"/><text x="1035" y="385"></text></g><g class="tag-res" id="rc_ap"><rect rx="6"/><text x="1040" y="553"></text></g>
+      </svg>
+      <svg class="plano-svg plano-resumen-svg" id="planoResumenSS" viewBox="0 0 1400 986" role="img" aria-label="Plano general del sistema sin separación con las dimensiones calculadas">
+        <image href="plano-sin-separacion.png" width="1400" height="986"/>
+        <g class="tag-res" id="rs_tr"><rect rx="6"/><text x="246" y="394"></text></g><g class="tag-res" id="rs_ls"><rect rx="6"/><text x="466" y="464"></text></g><g class="tag-res" id="rs_bd"><rect rx="6"/><text x="345" y="572"></text></g><g class="tag-res" id="rs_tb"><rect rx="6"/><text x="632" y="562"></text></g><g class="tag-res" id="rs_tt"><rect rx="6"/><text x="1057" y="357"></text></g><g class="tag-res" id="rs_ap"><rect rx="6"/><text x="1062" y="527"></text></g>
+      </svg>
+    </div>
+    <p class="plano-modal__nota">V: volumen · A: área superficial · Las medidas se expresan como largo × ancho.</p>
+
+    <div class="tabla-resumen-wrap">
+      <table class="tabla-resumen">
+        <thead><tr><th scope="col">Unidad</th><th scope="col">Volumen (m³)</th><th scope="col">Área (m²)</th><th scope="col">Largo (m)</th><th scope="col">Ancho (m)</th><th scope="col">Observaciones</th></tr></thead>
+        <tbody id="tbl_resumen"></tbody>
+      </table>
+    </div>
+    <div class="resumen__acciones no-imprimir">
+      <button type="button" class="nav-btn" onclick="window.print()">Imprimir o guardar en PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="close-lb" onclick="closeLightbox(event)">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer class="foot">
+  Primera versión de la calculadora — valores por defecto tomados del modelo de dimensionamiento del sistema de tratamiento de porcinaza. Ajusta cualquier parámetro en "opciones avanzadas" según las condiciones reales de tu finca.
+</footer>
+
+
+<script src="calculadora.js?v=12"></script>
+</body>
+</html>
